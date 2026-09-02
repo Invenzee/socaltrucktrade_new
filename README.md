@@ -1,3 +1,3 @@
 # socaltrucktrade_new
 
-SoCal Truck Trade website — Next.js frontend and backend.
+SoCal Truck Trade — Next.js frontend (Vercel-ready).
