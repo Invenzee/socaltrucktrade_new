@@ -7,46 +7,42 @@ import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  RiInstagramFill,
-  RiYoutubeFill,
-  RiTwitterXFill,
-} from "react-icons/ri";
+import { RiFacebookFill, RiInstagramFill } from "react-icons/ri";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const AUTH_ROUTES = new Set(["/login", "/register"]);
+const AUTH_ROUTES = new Set([
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+  "/verify-email",
+]);
 
 const SITEMAP = [
   { href: "/about", label: "About" },
   { href: "/listings", label: "View Truck Listings" },
   { href: "/sell", label: "Sell My Truck" },
-  { href: "/faqs", label: "FAQ" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 const CONTACT = [
-  { href: "tel:+13108629113", label: "+1 310-862-9113" },
-  { href: "mailto:so.caltrucktrade@gmail.com", label: "so.caltrucktrade@gmail.com" },
+  { href: "tel:+13109629113", label: "+1 310-962-9113" },
+  { href: "mailto:info@socaltrucktrade.com", label: "info@socaltrucktrade.com" },
   { href: "https://www.socaltrucktrade.com", label: "www.socaltrucktrade.com" },
 ] as const;
 
 const SOCIALS = [
   {
-    href: "https://instagram.com",
+    href: "https://www.instagram.com/so.caltrucktrade/",
     label: "Instagram",
     icon: RiInstagramFill,
     className: "bg-brand text-white",
   },
   {
-    href: "https://youtube.com",
-    label: "YouTube",
-    icon: RiYoutubeFill,
-    className: "bg-white/20 text-white",
-  },
-  {
-    href: "https://x.com",
-    label: "X",
-    icon: RiTwitterXFill,
+    href: "https://www.facebook.com/profile.php?id=61595326367446",
+    label: "Facebook",
+    icon: RiFacebookFill,
     className: "bg-white/20 text-white",
   },
 ] as const;
@@ -54,7 +50,8 @@ const SOCIALS = [
 export default function Footer() {
   const pathname = usePathname();
   const footerRef = useRef<HTMLElement>(null);
-  const isAuthPage = AUTH_ROUTES.has(pathname);
+  const isAuthPage =
+    AUTH_ROUTES.has(pathname) || pathname.startsWith("/dashboard");
 
   useGSAP(
     () => {
@@ -112,8 +109,10 @@ export default function Footer() {
               />
             </Link>
             <p className="mt-5 text-sm leading-relaxed text-white/70">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              SoCalTruckTrade is a truck-only marketplace based in Anaheim,
+              California. Buy or sell semis, box trucks and pickups, and connect
+              directly with buyers and sellers across California and nearby
+              states.
             </p>
             <div className="mt-6 flex items-center gap-3">
               {SOCIALS.map(({ href, label, icon: Icon, className }) => (
@@ -132,7 +131,7 @@ export default function Footer() {
           </div>
 
           <div data-footer-col>
-            <h3 className="text-base font-semibold text-white sm:text-lg">
+            <h3 className="font-heading text-base text-white sm:text-lg">
               Sitemap
             </h3>
             <ul className="mt-4 flex flex-col gap-3">
@@ -150,7 +149,7 @@ export default function Footer() {
           </div>
 
           <div data-footer-col>
-            <h3 className="text-base font-semibold text-white sm:text-lg">
+            <h3 className="font-heading text-base text-white sm:text-lg">
               Contact
             </h3>
             <ul className="mt-4 flex flex-col gap-3">
@@ -173,10 +172,30 @@ export default function Footer() {
 
         <div
           data-footer-bottom
-          className="mt-12 border-t border-white/15 pt-6 text-center sm:mt-14"
+          className="mt-12 flex flex-col items-center gap-3 border-t border-white/15 pt-5 text-center text-xs sm:mt-14 md:flex-row md:justify-between md:gap-4"
         >
-          <p className="text-xs text-white/60 sm:text-sm">
+          <p className="text-white/60 md:flex-1 md:text-left">
             ©Copyright 2026 Socal All rights reserved.
+          </p>
+          <p className="text-white/60 md:flex-1 md:text-center">
+            Design and develop by{" "}
+            <a
+              href="https://techcole.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-red"
+            >
+              Techcole
+            </a>
+          </p>
+          <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 md:flex-1 md:justify-end">
+            <Link href="/privacy" className="text-white/90 transition-colors hover:text-white">
+              Privacy Policy
+            </Link>
+            <span className="h-3 w-px bg-white/30" aria-hidden />
+            <Link href="/terms" className="text-white/90 transition-colors hover:text-white">
+              Terms and Conditions
+            </Link>
           </p>
         </div>
       </div>
